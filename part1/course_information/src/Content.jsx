@@ -1,8 +1,12 @@
-function Content({ part, exercise }) {
+import Part from "./Part"
+
+function Content({ parts, exercises }) {
   return (
-    <p>
-      {part} {exercise}
-    </p>
+    <div>
+      <Part part={parts[0]} exercise={exercises[0]} />
+      <Part part={parts[1]} exercise={exercises[1]} />
+      <Part part={parts[2]} exercise={exercises[2]} />
+    </div>
   )
 }
 
