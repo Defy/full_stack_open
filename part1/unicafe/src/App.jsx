@@ -17,6 +17,7 @@ function App() {
       <Button handleClick={increaseValue(good, setGood)} text="good" />
       <Button handleClick={increaseValue(neutral, setNeutral)} text="neutral" />
       <Button handleClick={increaseValue(bad, setBad)} text="bad" />
+      <Header heading="statistics" />
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
@@ -44,16 +45,17 @@ function Statistics({ good, neutral, bad }) {
   }
 
   function averageFeedback() {
-    return isNaN((good - bad) / totalFeedback()) ? 0 : (good - bad) / totalFeedback()
+    return (good - bad) / totalFeedback()
   }
 
   function positiveFeedbackPercent() {
-    return isNaN(good / totalFeedback()) ? 0 : good / totalFeedback()
+    return good / totalFeedback()
   }
+
+  if (!(good || neutral || bad)) return <p>No feedback given</p>
 
   return (
     <>
-      <Header heading="statistics" />
       <Display text="good" value={good} />
       <Display text="neutral" value={neutral} />
       <Display text="bad" value={bad} />
