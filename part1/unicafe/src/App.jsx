@@ -35,6 +35,15 @@ function Display({ text, value }) {
   )
 }
 
+function DisplayTable({ text, value }) {
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+  )
+}
+
 function Header({ heading }) {
   return <h1>{heading}</h1>
 }
@@ -49,25 +58,26 @@ function Statistics({ good, neutral, bad }) {
   }
 
   function positiveFeedbackPercent() {
-    return good / totalFeedback()
+    const PERCENT = 100
+    return (good / totalFeedback()) * PERCENT
   }
 
   if (!(good || neutral || bad)) return <p>No feedback given</p>
 
   return (
-    <>
+    <table>
       <StatisticsLine text="good" value={good} />
       <StatisticsLine text="neutral" value={neutral} />
       <StatisticsLine text="bad" value={bad} />
       <StatisticsLine text="all" value={totalFeedback()} />
       <StatisticsLine text="average" value={averageFeedback()} />
       <StatisticsLine text="positive" value={positiveFeedbackPercent() + " %"} />
-    </>
+    </table>
   )
 }
 
 function StatisticsLine({ text, value }) {
-  return <Display text={text} value={value} />
+  return <DisplayTable text={text} value={value} />
 }
 
 export default App
