@@ -56,14 +56,18 @@ function Statistics({ good, neutral, bad }) {
 
   return (
     <>
-      <Display text="good" value={good} />
-      <Display text="neutral" value={neutral} />
-      <Display text="bad" value={bad} />
-      <Display text="all" value={totalFeedback()} />
-      <Display text="average" value={averageFeedback()} />
-      <Display text="positive" value={positiveFeedbackPercent() + " %"} />
+      <StatisticsLine text="good" value={good} />
+      <StatisticsLine text="neutral" value={neutral} />
+      <StatisticsLine text="bad" value={bad} />
+      <StatisticsLine text="all" value={totalFeedback()} />
+      <StatisticsLine text="average" value={averageFeedback()} />
+      <StatisticsLine text="positive" value={positiveFeedbackPercent() + " %"} />
     </>
   )
+}
+
+function StatisticsLine({ text, value }) {
+  return <Display text={text} value={value} />
 }
 
 export default App
