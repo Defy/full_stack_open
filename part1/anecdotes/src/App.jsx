@@ -13,14 +13,24 @@ function App() {
   ]
   const [selected, setSelected] = useState(0)
 
+  const [points, setPoints] = useState({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0 })
+
   function generateRandomAnecdote() {
     const randomAnecdote = Math.floor(Math.random() * anecdotes.length)
     return setSelected(randomAnecdote)
   }
 
+  function voteAnecdote() {
+    const copyPoints = { ...points }
+    copyPoints[selected] += 1
+    return setPoints(copyPoints)
+  }
+
   return (
     <div>
       <DisplayAnecdote anecdote={anecdotes[selected]} />
+      <DisplayVotes votes={points[selected]} />
+      <Button handleClick={voteAnecdote} text="vote" />
       <Button handleClick={generateRandomAnecdote} text="next anecdote" />
     </div>
   )
@@ -28,6 +38,10 @@ function App() {
 
 function DisplayAnecdote({ anecdote }) {
   return <p>{anecdote}</p>
+}
+
+function DisplayVotes({ votes }) {
+  return <p>has {votes} votes</p>
 }
 
 function Button({ handleClick, text }) {
