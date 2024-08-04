@@ -13,7 +13,7 @@ function App() {
   ]
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0 })
-  const mostVotedAnecdote = getMostVotedAnecdote()
+  const [mostVotedAnecdote, setMostVotedAnecdote] = useState(0)
 
   function generateRandomAnecdote() {
     const randomAnecdote = Math.floor(Math.random() * anecdotes.length)
@@ -23,20 +23,11 @@ function App() {
   function voteAnecdote() {
     const copyPoints = { ...points }
     copyPoints[selected] += 1
-    return setPoints(copyPoints)
-  }
+    setPoints(copyPoints)
 
-  function getMostVotedAnecdote() {
-    let mostVotes = 0
-    let mostVoted = 0
-
-    for (const point in points) {
-      if (points[point] > mostVotes) {
-        mostVotes = points[point]
-        mostVoted = point
-      }
+    if (copyPoints[selected] > copyPoints[mostVotedAnecdote]) {
+      setMostVotedAnecdote(selected)
     }
-    return mostVoted
   }
 
   return (
@@ -48,6 +39,7 @@ function App() {
       <Button handleClick={generateRandomAnecdote} text="next anecdote" />
       <Header title="Anecdote with most votes" />
       <DisplayAnecdote anecdote={anecdotes[mostVotedAnecdote]} />
+      <DisplayVotes votes={points[mostVotedAnecdote]} />
     </div>
   )
 }
