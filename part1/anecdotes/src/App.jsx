@@ -12,8 +12,8 @@ function App() {
     "The only way to go fast, is to go well.",
   ]
   const [selected, setSelected] = useState(0)
-
   const [points, setPoints] = useState({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0 })
+  const mostVotedAnecdote = getMostVotedAnecdote()
 
   function generateRandomAnecdote() {
     const randomAnecdote = Math.floor(Math.random() * anecdotes.length)
@@ -26,12 +26,28 @@ function App() {
     return setPoints(copyPoints)
   }
 
+  function getMostVotedAnecdote() {
+    let mostVotes = 0
+    let mostVoted = 0
+
+    for (const point in points) {
+      if (points[point] > mostVotes) {
+        mostVotes = points[point]
+        mostVoted = point
+      }
+    }
+    return mostVoted
+  }
+
   return (
     <div>
+      <Header title="Anecdote of the day" />
       <DisplayAnecdote anecdote={anecdotes[selected]} />
       <DisplayVotes votes={points[selected]} />
       <Button handleClick={voteAnecdote} text="vote" />
       <Button handleClick={generateRandomAnecdote} text="next anecdote" />
+      <Header title="Anecdote with most votes" />
+      <DisplayAnecdote anecdote={anecdotes[mostVotedAnecdote]} />
     </div>
   )
 }
@@ -46,5 +62,9 @@ function DisplayVotes({ votes }) {
 
 function Button({ handleClick, text }) {
   return <button onClick={handleClick}>{text}</button>
+}
+
+function Header({ title }) {
+  return <h1>{title}</h1>
 }
 export default App
